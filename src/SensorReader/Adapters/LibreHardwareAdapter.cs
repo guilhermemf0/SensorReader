@@ -1,12 +1,13 @@
+#pragma warning disable CA1416
 using LibreHardwareMonitor.Hardware;
 using SensorReader.Models;
+using System.Linq;
 
 namespace SensorReader.Adapters;
 
 public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
 {
     private readonly Computer _computer;
-    private bool _isComputerOpen = false;
 
     public LibreHardwareAdapter()
     {
@@ -16,108 +17,96 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
             IsGpuEnabled = true,
             IsMotherboardEnabled = true,
             IsMemoryEnabled = true,
-            IsStorageEnabled = true,
-            IsNetworkEnabled = false,
-            IsControllerEnabled = false,
-            IsPsuEnabled = false
+            IsStorageEnabled = true
         };
+        _computer.Open();
+        Thread.Sleep(2000);
     }
 
-    public HardwareReport? GetHardwareReport()
+    public HardwareReport GetHardwareReport(HardwareReport? existingReport = null)
     {
-        try
+        var report = existingReport ?? new HardwareReport();
+        if (!report.DataSources.Contains(GetType().Name))
         {
-            if (!_isComputerOpen)
-            {
-                _computer.Open();
-                _isComputerOpen = true;
-                Thread.Sleep(2000);
-            }
-
-            _computer.Accept(new UpdateVisitor());
-
-            var report = new HardwareReport
-            {
-                Timestamp = DateTime.UtcNow.ToString("o")
-            };
-
-            foreach (var hardware in _computer.Hardware)
-            {
-                ProcessHardware(hardware, report);
-                foreach (var subHardware in hardware.SubHardware)
-                {
-                    ProcessHardware(subHardware, report);
-                }
-            }
-
-            return report;
+            report.DataSources.Add(GetType().Name);
         }
-        catch
+
+        _computer.Accept(new UpdateVisitor());
+
+        foreach (var hardware in _computer.Hardware)
         {
-            return null;
+            ProcessHardware(hardware, report);
         }
+        return report;
     }
+
+    HardwareReport IHardwareAdapter.GetHardwareReport() => GetHardwareReport(null);
 
     private void ProcessHardware(IHardware hardware, HardwareReport report)
     {
+        var sensors = GetSensors(hardware);
+
         switch (hardware.HardwareType)
         {
             case HardwareType.Cpu:
-                report.Cpus.Add(CreateReport<CpuReport>(hardware));
+                // Assume o primeiro CPU da lista
+                report.Cpus.FirstOrDefault()?.Sensors.AddRange(sensors);
                 break;
             case HardwareType.GpuAmd:
             case HardwareType.GpuNvidia:
-                report.Gpus.Add(CreateReport<GpuReport>(hardware));
+                 // Assume a primeira GPU da lista
+                report.Gpus.FirstOrDefault()?.Sensors.AddRange(sensors);
                 break;
             case HardwareType.Memory:
-                report.MemoryModules.Add(CreateReport<MemoryReport>(hardware));
+                report.Memory.GlobalSensors.AddRange(sensors);
                 break;
             case HardwareType.Motherboard:
             case HardwareType.SuperIO:
-                report.Motherboards.Add(CreateReport<MotherboardReport>(hardware));
+                 // Atribui todos os sensores à única placa-mãe
+                report.Motherboard.Sensors.AddRange(sensors);
                 break;
             case HardwareType.Storage:
-                var storageReport = CreateReport<StorageReport>(hardware);
-                storageReport.DriveType = GetDriveType(hardware);
-                report.StorageDevices.Add(storageReport);
+                // Lógica de correspondência aprimorada para armazenamento
+                var storageDevice = report.StorageDevices
+                    .FirstOrDefault(s => SanitizeName(hardware.Name).Contains(SanitizeName(s.Model)));
+                storageDevice?.Sensors.AddRange(sensors);
                 break;
         }
 
-        var fanSensors = hardware.Sensors.Where(s => s.SensorType == LibreHardwareMonitor.Hardware.SensorType.Fan);
-        foreach (var fanSensor in fanSensors)
+        // Processar sub-hardware (útil para alguns componentes)
+        foreach (var subHardware in hardware.SubHardware)
         {
-            report.Fans.Add(new Fan
-            {
-                Name = fanSensor.Name,
-                Rpm = fanSensor.Value
-            });
+            ProcessHardware(subHardware, report);
         }
     }
 
-    private T CreateReport<T>(IHardware hardware) where T : HardwareComponent, new()
+    private IEnumerable<Models.Sensor> GetSensors(IHardware hardware)
     {
-        var componentReport = new T { Name = hardware.Name };
         foreach (var sensor in hardware.Sensors)
         {
-            componentReport.Sensors.Add(new Models.Sensor
+            // APERFEIÇOADO: Se o valor for NaN ou Infinito, ele se torna null
+            float? sensorValue = sensor.Value;
+            if (sensorValue.HasValue && (float.IsNaN(sensorValue.Value) || float.IsInfinity(sensorValue.Value)))
+            {
+                sensorValue = null;
+            }
+
+            yield return new Models.Sensor
             {
                 Name = sensor.Name,
-                Value = sensor.Value,
+                Value = sensorValue,
                 Type = ConvertSensorType(sensor.SensorType),
                 Unit = GetSensorUnit(sensor.SensorType)
-            });
+            };
         }
-        return componentReport;
     }
 
-    // LÓGICA ALTERNATIVA: Identifica o tipo de drive sem usar 'Rotation'
-    private string GetDriveType(IHardware hardware)
+    private string SanitizeName(string name)
     {
-        if (hardware.Name.Contains("NVMe", StringComparison.OrdinalIgnoreCase)) return "NVMe SSD";
-        // A detecção de HDD foi removida para evitar o bug. Podemos assumir SSD para os demais.
-        return "SATA SSD/HDD";
+        return name.Replace(" ", "").ToUpperInvariant();
     }
 
+    // Métodos ConvertSensorType e GetSensorUnit permanecem os mesmos...
     private Models.SensorType ConvertSensorType(LibreHardwareMonitor.Hardware.SensorType type)
     {
         return type switch
@@ -130,7 +119,8 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
             LibreHardwareMonitor.Hardware.SensorType.Power => Models.SensorType.Power,
             LibreHardwareMonitor.Hardware.SensorType.Data => Models.SensorType.Data,
             LibreHardwareMonitor.Hardware.SensorType.Control => Models.SensorType.Control,
-            // A linha 'Rotation' foi permanentemente removida daqui
+            LibreHardwareMonitor.Hardware.SensorType.Throughput => Models.SensorType.Throughput,
+            LibreHardwareMonitor.Hardware.SensorType.Frequency => Models.SensorType.Frequency,
             _ => Models.SensorType.Unknown,
         };
     }
@@ -140,39 +130,29 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
         return type switch
         {
             LibreHardwareMonitor.Hardware.SensorType.Voltage => "V",
-            LibreHardwareMonitor.Hardware.SensorType.Clock => "MHz",
+            LibreHardwareMonitor.Hardware.SensorType.Clock or LibreHardwareMonitor.Hardware.SensorType.Frequency => "MHz",
             LibreHardwareMonitor.Hardware.SensorType.Temperature => "°C",
             LibreHardwareMonitor.Hardware.SensorType.Load => "%",
             LibreHardwareMonitor.Hardware.SensorType.Fan => "RPM",
             LibreHardwareMonitor.Hardware.SensorType.Power => "W",
             LibreHardwareMonitor.Hardware.SensorType.Data => "GB",
+            LibreHardwareMonitor.Hardware.SensorType.Throughput => "B/s",
             _ => "",
         };
     }
 
-    public void Dispose()
-    {
-        if (_isComputerOpen)
-        {
-            _computer.Close();
-        }
-    }
+    public void Dispose() => _computer.Close();
 }
 
 internal class UpdateVisitor : IVisitor
 {
-    public void VisitComputer(IComputer computer)
-    {
-        computer.Traverse(this);
-    }
-
+    public void VisitComputer(IComputer computer) => computer.Traverse(this);
     public void VisitHardware(IHardware hardware)
     {
         hardware.Update();
         foreach (IHardware subHardware in hardware.SubHardware)
             subHardware.Accept(this);
     }
-
     public void VisitSensor(ISensor sensor) { }
     public void VisitParameter(IParameter parameter) { }
 }

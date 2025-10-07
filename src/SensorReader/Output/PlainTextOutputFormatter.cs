@@ -10,7 +10,7 @@ public class PlainTextOutputFormatter : IOutputFormatter
     {
         var sb = new StringBuilder();
 
-        // Formata os dados de cada componente
+        // Formata os dados de cada componente com a nova estrutura
         FormatCpu(report, sb);
         FormatGpu(report, sb);
         FormatMemory(report, sb);
@@ -28,7 +28,6 @@ public class PlainTextOutputFormatter : IOutputFormatter
             foreach (var sensor in cpu.Sensors)
             {
                 if (!sensor.Value.HasValue) continue;
-
                 string key = $"CPU_{sensor.Type.ToString().ToUpper()}_{SanitizeKey(sensor.Name)}";
                 sb.AppendFormat("{0}:{1};", key, sensor.Value.Value.ToString("F1", CultureInfo.InvariantCulture));
             }
@@ -42,8 +41,7 @@ public class PlainTextOutputFormatter : IOutputFormatter
             foreach (var sensor in gpu.Sensors)
             {
                 if (!sensor.Value.HasValue) continue;
-
-                string key = $"GPU_{sensor.Type.ToString().ToUpper()}_{SanitizeKey(sensor.Name)}";
+                string key = $"GPU_{SanitizeKey(gpu.Name)}_{sensor.Type.ToString().ToUpper()}_{SanitizeKey(sensor.Name)}";
                 sb.AppendFormat("{0}:{1};", key, sensor.Value.Value.ToString("F1", CultureInfo.InvariantCulture));
             }
         }
@@ -51,32 +49,23 @@ public class PlainTextOutputFormatter : IOutputFormatter
 
     private void FormatMemory(HardwareReport report, StringBuilder sb)
     {
-        foreach (var mem in report.MemoryModules)
+        // Agora acessa report.Memory.GlobalSensors
+        foreach (var sensor in report.Memory.GlobalSensors)
         {
-            foreach (var sensor in mem.Sensors)
-            {
-                if (!sensor.Value.HasValue) continue;
-
-                // Converte de GiB para MiB se for um sensor de dados (Data)
-                float value = sensor.Type == SensorType.Data ? sensor.Value.Value * 1024 : sensor.Value.Value;
-
-                string key = $"RAM_{sensor.Type.ToString().ToUpper()}_{SanitizeKey(sensor.Name)}";
-                sb.AppendFormat("{0}:{1};", key, value.ToString("F1", CultureInfo.InvariantCulture));
-            }
+            if (!sensor.Value.HasValue) continue;
+            string key = $"MEMORY_{sensor.Type.ToString().ToUpper()}_{SanitizeKey(sensor.Name)}";
+            sb.AppendFormat("{0}:{1};", key, sensor.Value.Value.ToString("F1", CultureInfo.InvariantCulture));
         }
     }
 
     private void FormatMotherboard(HardwareReport report, StringBuilder sb)
     {
-        foreach (var mb in report.Motherboards)
+        // Agora acessa report.Motherboard.Sensors
+        foreach (var sensor in report.Motherboard.Sensors)
         {
-            foreach (var sensor in mb.Sensors)
-            {
-                 if (!sensor.Value.HasValue) continue;
-
-                string key = $"MB_{sensor.Type.ToString().ToUpper()}_{SanitizeKey(sensor.Name)}";
-                sb.AppendFormat("{0}:{1};", key, sensor.Value.Value.ToString("F1", CultureInfo.InvariantCulture));
-            }
+            if (!sensor.Value.HasValue) continue;
+            string key = $"MB_{sensor.Type.ToString().ToUpper()}_{SanitizeKey(sensor.Name)}";
+            sb.AppendFormat("{0}:{1};", key, sensor.Value.Value.ToString("F1", CultureInfo.InvariantCulture));
         }
     }
 
@@ -86,9 +75,9 @@ public class PlainTextOutputFormatter : IOutputFormatter
         {
             foreach (var sensor in drive.Sensors)
             {
-                 if (!sensor.Value.HasValue) continue;
-
-                string key = $"STORAGE_{SanitizeKey(drive.Name)}_{sensor.Type.ToString().ToUpper()}_{SanitizeKey(sensor.Name)}";
+                if (!sensor.Value.HasValue) continue;
+                // Agora usa drive.Model em vez de drive.Name
+                string key = $"STORAGE_{SanitizeKey(drive.Model)}_{sensor.Type.ToString().ToUpper()}_{SanitizeKey(sensor.Name)}";
                 sb.AppendFormat("{0}:{1};", key, sensor.Value.Value.ToString("F1", CultureInfo.InvariantCulture));
             }
         }
@@ -109,6 +98,6 @@ public class PlainTextOutputFormatter : IOutputFormatter
                 sb.Append('_');
             }
         }
-        return sb.ToString().Replace("__", "_");
+        return sb.ToString().ToUpper();
     }
 }

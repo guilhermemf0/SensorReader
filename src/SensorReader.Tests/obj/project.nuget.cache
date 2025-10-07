@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9UVOBfLWCVM=",
+  "dgSpecHash": "soaLWTbQ1pk=",
   "success": true,
   "projectFilePath": "C:\\Projetos\\SensorReader\\src\\SensorReader.Tests\\SensorReader.Tests.csproj",
   "expectedPackageFiles": [
@@ -32,12 +32,12 @@
     "C:\\Users\\langu\\.nuget\\packages\\runtime.native.system.io.ports\\9.0.0\\runtime.native.system.io.ports.9.0.0.nupkg.sha512",
     "C:\\Users\\langu\\.nuget\\packages\\runtime.osx-arm64.runtime.native.system.io.ports\\9.0.0\\runtime.osx-arm64.runtime.native.system.io.ports.9.0.0.nupkg.sha512",
     "C:\\Users\\langu\\.nuget\\packages\\runtime.osx-x64.runtime.native.system.io.ports\\9.0.0\\runtime.osx-x64.runtime.native.system.io.ports.9.0.0.nupkg.sha512",
-    "C:\\Users\\langu\\.nuget\\packages\\system.codedom\\9.0.0\\system.codedom.9.0.0.nupkg.sha512",
+    "C:\\Users\\langu\\.nuget\\packages\\system.codedom\\9.0.9\\system.codedom.9.0.9.nupkg.sha512",
     "C:\\Users\\langu\\.nuget\\packages\\system.commandline\\2.0.0-beta4.22272.1\\system.commandline.2.0.0-beta4.22272.1.nupkg.sha512",
     "C:\\Users\\langu\\.nuget\\packages\\system.io.filesystem.accesscontrol\\5.0.0\\system.io.filesystem.accesscontrol.5.0.0.nupkg.sha512",
     "C:\\Users\\langu\\.nuget\\packages\\system.io.pipelines\\9.0.0-preview.7.24405.7\\system.io.pipelines.9.0.0-preview.7.24405.7.nupkg.sha512",
     "C:\\Users\\langu\\.nuget\\packages\\system.io.ports\\9.0.0\\system.io.ports.9.0.0.nupkg.sha512",
-    "C:\\Users\\langu\\.nuget\\packages\\system.management\\9.0.0\\system.management.9.0.0.nupkg.sha512",
+    "C:\\Users\\langu\\.nuget\\packages\\system.management\\9.0.9\\system.management.9.0.9.nupkg.sha512",
     "C:\\Users\\langu\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512",
     "C:\\Users\\langu\\.nuget\\packages\\system.security.accesscontrol\\5.0.0\\system.security.accesscontrol.5.0.0.nupkg.sha512",
     "C:\\Users\\langu\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512",

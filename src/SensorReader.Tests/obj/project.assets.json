@@ -1574,7 +1574,7 @@
           }
         }
       },
-      "System.CodeDom/9.0.0": {
+      "System.CodeDom/9.0.9": {
         "type": "package",
         "compile": {
           "lib/net9.0/System.CodeDom.dll": {
@@ -1712,10 +1712,10 @@
           }
         }
       },
-      "System.Management/9.0.0": {
+      "System.Management/9.0.9": {
         "type": "package",
         "dependencies": {
-          "System.CodeDom": "9.0.0"
+          "System.CodeDom": "9.0.9"
         },
         "compile": {
           "lib/net9.0/System.Management.dll": {
@@ -1940,6 +1940,7 @@
         "dependencies": {
           "LibreHardwareMonitorLib": "0.9.4",
           "System.CommandLine": "2.0.0-beta4.22272.1",
+          "System.Management": "9.0.9",
           "System.Text.Json": "9.0.0-preview.7.24405.7"
         },
         "compile": {
@@ -2965,10 +2966,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.CodeDom/9.0.0": {
-      "sha512": "oTE5IfuMoET8yaZP/vdvy9xO47guAv/rOhe4DODuFBN3ySprcQOlXqO3j+e/H/YpKKR5sglrxRaZ2HYOhNJrqA==",
+    "System.CodeDom/9.0.9": {
+      "sha512": "Az4ngSi0MO3Qwu1+BJRHnc2C8e7+x0oXj+Q++C/wru0vM8J2oL3QlliiZPdwPnR0VbiL0lH7izSIGQssMaRiGQ==",
       "type": "package",
-      "path": "system.codedom/9.0.0",
+      "path": "system.codedom/9.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2988,7 +2989,7 @@
         "lib/net9.0/System.CodeDom.xml",
         "lib/netstandard2.0/System.CodeDom.dll",
         "lib/netstandard2.0/System.CodeDom.xml",
-        "system.codedom.9.0.0.nupkg.sha512",
+        "system.codedom.9.0.9.nupkg.sha512",
         "system.codedom.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3144,10 +3145,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Management/9.0.0": {
-      "sha512": "bVh4xAMI5grY5GZoklKcMBLirhC8Lqzp63Ft3zXJacwGAlLyFdF4k0qz4pnKIlO6HyL2Z4zqmHm9UkzEo6FFsA==",
+    "System.Management/9.0.9": {
+      "sha512": "U+OnvxuFi/V0++P98Auba1pAyaOXU5EioSz0xczgFsB7l/sPX9Ix4rWwI+lXJG4/icPieeRsfpXPEIcSBTQShw==",
       "type": "package",
-      "path": "system.management/9.0.0",
+      "path": "system.management/9.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3168,7 +3169,7 @@
         "runtimes/win/lib/net8.0/System.Management.xml",
         "runtimes/win/lib/net9.0/System.Management.dll",
         "runtimes/win/lib/net9.0/System.Management.xml",
-        "system.management.9.0.0.nupkg.sha512",
+        "system.management.9.0.9.nupkg.sha512",
         "system.management.nuspec",
         "useSharedDesignerContext.txt"
       ]
