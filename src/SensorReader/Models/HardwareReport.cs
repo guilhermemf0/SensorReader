@@ -4,6 +4,35 @@ namespace SensorReader.Models;
 
 // --- Modelos de Sensores (Dinâmicos) ---
 
+public class LogicalDiskInfo
+{
+    public string DeviceID { get; set; } = "N/A"; // Ex: "C:"
+    public string FileSystem { get; set; } = "N/A"; // Ex: "NTFS"
+    public ulong Size { get; set; } // Em bytes
+    public ulong FreeSpace { get; set; } // Em bytes
+    public double SizeInGB => Math.Round(Size / 1024.0 / 1024.0 / 1024.0, 2);
+    public double FreeSpaceInGB => Math.Round(FreeSpace / 1024.0 / 1024.0 / 1024.0, 2);
+}
+
+public class OperatingSystemInfo
+{
+    public string Caption { get; set; } = "N/A"; // Ex: "Microsoft Windows 11 Pro"
+    public string Version { get; set; } = "N/A";
+    public string BuildNumber { get; set; } = "N/A";
+    public string OsArchitecture { get; set; } = "N/A"; // Ex: "64-bit"
+    public DateTime InstallDate { get; set; }
+    public DateTime LastBootUpTime { get; set; }
+}
+
+public class NetworkAdapterInfo
+{
+    public string Name { get; set; } = "N/A";
+    public string AdapterType { get; set; } = "N/A";
+    public string MacAddress { get; set; } = "N/A";
+    public List<string> IpAddresses { get; set; } = new();
+    public bool IsConnected => IpAddresses.Count > 0;
+}
+
 public class Sensor
 {
     public string Name { get; set; } = string.Empty;
@@ -75,6 +104,7 @@ public class StorageInfo
     public string InterfaceType { get; set; } = "N/A";
     public ulong Size { get; set; } // Em bytes
     public double SizeInGB => Math.Round(Size / 1024.0 / 1024.0 / 1024.0, 2);
+    public List<LogicalDiskInfo> LogicalDisks { get; set; } = new();
     public List<Sensor> Sensors { get; set; } = new();
 }
 
@@ -85,6 +115,8 @@ public class HardwareReport
 {
     public string Timestamp { get; set; } = string.Empty;
     public List<string> DataSources { get; set; } = new();
+    public OperatingSystemInfo OsInfo { get; set; } = new();
+    public List<NetworkAdapterInfo> NetworkAdapters { get; set; } = new();
     public List<CpuInfo> Cpus { get; set; } = new();
     public List<GpuInfo> Gpus { get; set; } = new();
     public MemoryInfo Memory { get; set; } = new(); // Agora é um objeto, não uma lista

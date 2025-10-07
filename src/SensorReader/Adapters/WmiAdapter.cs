@@ -13,6 +13,8 @@ public class WmiAdapter : IHardwareAdapter
         var report = new HardwareReport();
         report.DataSources.Add(GetType().Name);
 
+        FillOsInfo(report);
+        FillNetworkInfo(report);
         FillCpuInfo(report);
         FillGpuInfo(report);
         FillMemoryInfo(report);
@@ -20,6 +22,38 @@ public class WmiAdapter : IHardwareAdapter
         FillStorageInfo(report);
 
         return report;
+    }
+
+    // --- Métodos de Coleta de Dados (sem alterações aqui) ---
+
+    private void FillOsInfo(HardwareReport report)
+    {
+        using var searcher = new ManagementObjectSearcher("select * from Win32_OperatingSystem");
+        var os = searcher.Get().OfType<ManagementObject>().FirstOrDefault();
+        if (os != null)
+        {
+            report.OsInfo.Caption = os["Caption"]?.ToString()?.Trim() ?? "N/A";
+            report.OsInfo.Version = os["Version"]?.ToString() ?? "N/A";
+            report.OsInfo.BuildNumber = os["BuildNumber"]?.ToString() ?? "N/A";
+            report.OsInfo.OsArchitecture = os["OSArchitecture"]?.ToString() ?? "N/A";
+            report.OsInfo.InstallDate = ManagementDateTimeConverter.ToDateTime(os["InstallDate"]?.ToString() ?? "");
+            report.OsInfo.LastBootUpTime = ManagementDateTimeConverter.ToDateTime(os["LastBootUpTime"]?.ToString() ?? "");
+        }
+    }
+
+    private void FillNetworkInfo(HardwareReport report)
+    {
+        using var searcher = new ManagementObjectSearcher("select * from Win32_NetworkAdapterConfiguration where IPEnabled=TRUE");
+        foreach (var obj in searcher.Get())
+        {
+            var adapter = new NetworkAdapterInfo
+            {
+                Name = obj["Description"]?.ToString()?.Trim() ?? "N/A",
+                MacAddress = obj["MacAddress"]?.ToString() ?? "N/A",
+            };
+            if (obj["IPAddress"] is string[] addresses) { adapter.IpAddresses.AddRange(addresses); }
+            report.NetworkAdapters.Add(adapter);
+        }
     }
 
     private void FillCpuInfo(HardwareReport report)
@@ -60,7 +94,6 @@ public class WmiAdapter : IHardwareAdapter
             if (compSystem != null)
                 report.Memory.TotalPhysicalMemory = (ulong)compSystem["TotalPhysicalMemory"];
         }
-
         using (var searcher = new ManagementObjectSearcher("select * from Win32_PhysicalMemory"))
         {
             foreach (var obj in searcher.Get())
@@ -95,15 +128,12 @@ public class WmiAdapter : IHardwareAdapter
         {
             var bios = searcher.Get().OfType<ManagementObject>().FirstOrDefault();
             if (bios != null)
-            {
                 report.Motherboard.BiosVersion = bios["SMBIOSBIOSVersion"]?.ToString()?.Trim() ?? "N/A";
-            }
         }
     }
 
     private void FillStorageInfo(HardwareReport report)
     {
-        // MÉTODO DEFINITIVO: Usa a API de armazenamento moderna do Windows para obter o tipo de barramento.
         var busTypeMap = new Dictionary<uint, string>();
         try
         {
@@ -112,46 +142,64 @@ public class WmiAdapter : IHardwareAdapter
             using var searcher = new ManagementObjectSearcher(scope, query);
             foreach (var disk in searcher.Get())
             {
-                var diskNumber = (uint)disk["Number"];
-                var busType = (ushort)disk["BusType"];
-                busTypeMap[diskNumber] = busType switch
-                {
-                    11 => "SATA",
-                    17 => "NVMe",
-                    7  => "USB",
-                    _  => "Other"
-                };
+                busTypeMap[(uint)disk["Number"]] = (ushort)disk["BusType"] switch { 11 => "SATA", 17 => "NVMe", 7 => "USB", _ => "Other" };
             }
         }
-        catch (ManagementException) { /* Ignora se a consulta moderna falhar */ }
+        catch (ManagementException) { /* Ignora */ }
 
-        using var wmiDiskSearcher = new ManagementObjectSearcher("SELECT Index, Model, InterfaceType, Size FROM Win32_DiskDrive");
-        foreach (var wmiDisk in wmiDiskSearcher.Get())
+        using var wmiDiskSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
+        foreach (ManagementObject wmiDisk in wmiDiskSearcher.Get()) // Cast aqui para garantir o tipo
         {
             var index = (uint)wmiDisk["Index"];
             string mediaType = "Unspecified";
-
             if (busTypeMap.TryGetValue(index, out var busType))
             {
-                if (busType == "NVMe")
-                    mediaType = "NVMe SSD";
-                else if (busType == "SATA")
-                    mediaType = "SATA SSD"; // Assumimos que SATA em hardware moderno é SSD, mas poderia ser HDD.
-                else
-                    mediaType = busType;
+                mediaType = busType == "NVMe" ? "NVMe SSD" : (busType == "SATA" ? "SATA SSD" : busType);
             }
 
-            report.StorageDevices.Add(new StorageInfo
+            var storageInfo = new StorageInfo
             {
                 Model = wmiDisk["Model"]?.ToString()?.Trim() ?? "N/A",
                 InterfaceType = wmiDisk["InterfaceType"]?.ToString()?.Trim() ?? "N/A",
                 Size = (ulong)wmiDisk["Size"],
                 MediaType = mediaType
-            });
+            };
+
+            storageInfo.LogicalDisks = GetLogicalDisksForDrive(wmiDisk.Path.Path);
+
+            report.StorageDevices.Add(storageInfo);
         }
     }
 
     // --- Métodos Auxiliares ---
+
+    private List<LogicalDiskInfo> GetLogicalDisksForDrive(string diskDrivePath)
+    {
+        var logicalDisks = new List<LogicalDiskInfo>();
+        var partitionQuery = new RelatedObjectQuery($"associators of {{{diskDrivePath}}} where AssocClass = Win32_DiskDriveToDiskPartition");
+        using var partitionSearcher = new ManagementObjectSearcher(partitionQuery);
+
+        // CORRIGIDO: Adicionado o cast para ManagementObject
+        foreach (ManagementObject partition in partitionSearcher.Get())
+        {
+            var logicalDiskQuery = new RelatedObjectQuery($"associators of {{{partition.Path.Path}}} where AssocClass = Win32_LogicalDiskToPartition");
+            using var logicalDiskSearcher = new ManagementObjectSearcher(logicalDiskQuery);
+
+            // CORRIGIDO: Adicionado o cast para ManagementObject
+            foreach (ManagementObject logicalDisk in logicalDiskSearcher.Get())
+            {
+                logicalDisks.Add(new LogicalDiskInfo
+                {
+                    DeviceID = logicalDisk["DeviceID"]?.ToString() ?? "N/A",
+                    FileSystem = logicalDisk["FileSystem"]?.ToString() ?? "N/A",
+                    Size = (ulong)logicalDisk["Size"],
+                    FreeSpace = (ulong)logicalDisk["FreeSpace"]
+                });
+            }
+        }
+        return logicalDisks;
+    }
+
     private string ConvertCimMemoryType(object memoryType) => memoryType == null ? "Unknown" : Convert.ToUInt32(memoryType) switch { 0 => "Unknown", 20 => "DDR", 21 => "DDR2", 24 => "DDR3", 26 => "DDR4", _ => "Other" };
     private string ConvertCimMemoryFormFactor(object formFactor) => formFactor == null ? "Unknown" : Convert.ToUInt32(formFactor) switch { 8 => "DIMM", 9 => "SODIMM", _ => "Other" };
 }
