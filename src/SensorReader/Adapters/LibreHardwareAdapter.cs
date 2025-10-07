@@ -107,6 +107,7 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
     }
 
     // Métodos ConvertSensorType e GetSensorUnit permanecem os mesmos...
+
     private Models.SensorType ConvertSensorType(LibreHardwareMonitor.Hardware.SensorType type)
     {
         return type switch
@@ -117,10 +118,13 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
             LibreHardwareMonitor.Hardware.SensorType.Load => Models.SensorType.Load,
             LibreHardwareMonitor.Hardware.SensorType.Fan => Models.SensorType.Fan,
             LibreHardwareMonitor.Hardware.SensorType.Power => Models.SensorType.Power,
-            LibreHardwareMonitor.Hardware.SensorType.Data => Models.SensorType.Data,
             LibreHardwareMonitor.Hardware.SensorType.Control => Models.SensorType.Control,
-            LibreHardwareMonitor.Hardware.SensorType.Throughput => Models.SensorType.Throughput,
             LibreHardwareMonitor.Hardware.SensorType.Frequency => Models.SensorType.Frequency,
+            LibreHardwareMonitor.Hardware.SensorType.Throughput => Models.SensorType.Throughput,
+
+            LibreHardwareMonitor.Hardware.SensorType.Data => Models.SensorType.Data,
+            LibreHardwareMonitor.Hardware.SensorType.SmallData => Models.SensorType.SmallData,
+
             _ => Models.SensorType.Unknown,
         };
     }
@@ -136,6 +140,7 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
             LibreHardwareMonitor.Hardware.SensorType.Fan => "RPM",
             LibreHardwareMonitor.Hardware.SensorType.Power => "W",
             LibreHardwareMonitor.Hardware.SensorType.Data => "GB",
+            LibreHardwareMonitor.Hardware.SensorType.SmallData => "MB", // Unidade adicionada
             LibreHardwareMonitor.Hardware.SensorType.Throughput => "B/s",
             _ => "",
         };

@@ -4,6 +4,18 @@ namespace SensorReader.Models;
 
 // --- Modelos de Sensores (Dinâmicos) ---
 
+public class BatteryInfo
+{
+    public string Name { get; set; } = "N/A";
+    public ushort Chemistry { get; set; }
+    public double DesignCapacity { get; set; }
+    public double FullChargeCapacity { get; set; }
+    public ushort Status { get; set; }
+    public double EstimatedChargeRemaining { get; set; }
+    public double EstimatedRunTime { get; set; }
+    public double TimeToFullCharge { get; set; }
+}
+
 public class LogicalDiskInfo
 {
     public string DeviceID { get; set; } = "N/A"; // Ex: "C:"
@@ -44,7 +56,7 @@ public class Sensor
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum SensorType
 {
-    Unknown, Temperature, Load, Fan, Clock, Power, Voltage, Data, Control, Throughput, Frequency
+    Unknown, Temperature, Load, Fan, Clock, Power, Voltage, Data, Control, Throughput, Frequency, SmallData
 }
 
 
@@ -117,6 +129,7 @@ public class HardwareReport
     public List<string> DataSources { get; set; } = new();
     public OperatingSystemInfo OsInfo { get; set; } = new();
     public List<NetworkAdapterInfo> NetworkAdapters { get; set; } = new();
+    public List<BatteryInfo> Batteries { get; set; } = new();
     public List<CpuInfo> Cpus { get; set; } = new();
     public List<GpuInfo> Gpus { get; set; } = new();
     public MemoryInfo Memory { get; set; } = new(); // Agora é um objeto, não uma lista
