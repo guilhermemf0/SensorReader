@@ -19,13 +19,16 @@ public class MonitoringService
 
     public void RunOnce()
     {
-        // Etapa 1: Obter dados estáticos do WMI
+        // 1. Coleta dados estáticos e de WMI.
         HardwareReport report = _wmiAdapter.GetHardwareReport();
 
-        // Etapa 2: Enriquecer o relatório com sensores dinâmicos do LibreHardware
+        // 2. Tenta obter sensores da fonte primária (LibreHardware).
         _libreAdapter.GetHardwareReport(report);
 
-        // Etapa 3: Registrar o timestamp final e formatar a saída
+        // 3. (PLANO B) Ativa o fallback para preencher temperaturas em falta.
+        _wmiAdapter.FillMissingTemperatures(report);
+
+        // 4. Finaliza e mostra o relatório mais completo possível.
         report.Timestamp = DateTime.UtcNow.ToString("o");
         _formatter.Write(report);
     }

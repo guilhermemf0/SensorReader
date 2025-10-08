@@ -96,7 +96,8 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
                 Name = sensor.Name,
                 Value = sensorValue,
                 Type = ConvertSensorType(sensor.SensorType),
-                Unit = GetSensorUnit(sensor.SensorType)
+                Unit = GetSensorUnit(sensor.SensorType),
+                DataSource = "LibreHardwareMonitor" // ADICIONAR ESTA LINHA
             };
         }
     }

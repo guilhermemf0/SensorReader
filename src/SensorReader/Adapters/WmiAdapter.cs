@@ -8,6 +8,7 @@ namespace SensorReader.Adapters;
 
 public class WmiAdapter : IHardwareAdapter
 {
+    // ... (métodos GetHardwareReport, FillOsInfo, FillNetworkInfo, FillBatteryInfo, FillCpuInfo, FillGpuInfo, FillMemoryInfo, FillMotherboardInfo permanecem os mesmos)
     public HardwareReport GetHardwareReport()
     {
         var report = new HardwareReport();
@@ -24,8 +25,6 @@ public class WmiAdapter : IHardwareAdapter
 
         return report;
     }
-
-    // --- Métodos de Coleta de Dados ---
 
     private void FillOsInfo(HardwareReport report)
     {
@@ -81,20 +80,18 @@ public class WmiAdapter : IHardwareAdapter
             {
                 report.Batteries.Add(new BatteryInfo
                 {
-                    Name = obj["Name"]?.ToString()?.Trim() ?? "N/A",
-                    Chemistry = (ushort)obj["Chemistry"],
-                    DesignCapacity = obj["DesignCapacity"] != null ? (uint)obj["DesignCapacity"] : 0,
-                    FullChargeCapacity = obj["FullChargeCapacity"] != null ? (uint)obj["FullChargeCapacity"] : 0,
-                    Status = obj["Status"] != null ? ushort.Parse(obj["Status"].ToString()!) : (ushort)0,
-                    EstimatedChargeRemaining = obj["EstimatedChargeRemaining"] != null ? (ushort)obj["EstimatedChargeRemaining"] : (ushort)0,
-                    EstimatedRunTime = obj["EstimatedRunTime"] != null ? (uint)obj["EstimatedRunTime"] : 0,
-                    TimeToFullCharge = obj["TimeToFullCharge"] != null ? (uint)obj["TimeToFullCharge"] : 0
+                    Name = GetPropertyValue<string>(obj, "Name") ?? "N/A",
+                    Status = ConvertBatteryStatus(GetPropertyValue<ushort>(obj, "Status")),
+                    Chemistry = ConvertBatteryChemistry(GetPropertyValue<ushort>(obj, "Chemistry")),
+                    DesignCapacity = GetPropertyValue<uint>(obj, "DesignCapacity"),
+                    FullChargeCapacity = GetPropertyValue<uint>(obj, "FullChargeCapacity"),
+                    EstimatedChargeRemaining = GetPropertyValue<ushort>(obj, "EstimatedChargeRemaining"),
+                    EstimatedRunTime = GetPropertyValue<uint>(obj, "EstimatedRunTime")
                 });
             }
         }
-        catch (ManagementException) { /* Ignora se a consulta falhar (ex: em desktops) */ }
+        catch (ManagementException) { /* Ignora */ }
     }
-
 
     private void FillCpuInfo(HardwareReport report)
     {
@@ -147,7 +144,6 @@ public class WmiAdapter : IHardwareAdapter
                     Manufacturer = obj["Manufacturer"]?.ToString()?.Trim() ?? "N/A",
                     PartNumber = obj["PartNumber"]?.ToString()?.Trim() ?? "N/A",
                     FormFactor = ConvertCimMemoryFormFactor(obj["FormFactor"]),
-                    // LÓGICA DE FALLBACK: Tenta a propriedade mais nova primeiro, depois a mais antiga.
                     MemoryType = ConvertCimMemoryType(obj["SMBIOSMemoryType"] ?? obj["MemoryType"])
                 });
             }
@@ -174,29 +170,41 @@ public class WmiAdapter : IHardwareAdapter
         }
     }
 
+
+    // MÉTODO COMPLETAMENTE REESCRITO COM VERIFICAÇÃO CRUZADA
     private void FillStorageInfo(HardwareReport report)
     {
-        var busTypeMap = new Dictionary<uint, string>();
+        var driveData = new Dictionary<string, (string busType, uint rotationRate)>();
         try
         {
             var scope = new ManagementScope(@"\\.\root\microsoft\windows\storage");
-            var query = new ObjectQuery("SELECT Number, BusType FROM MSFT_Disk");
+            var query = new ObjectQuery("SELECT DeviceID, BusType, NominalMediaRotationRate FROM MSFT_PhysicalDisk");
             using var searcher = new ManagementObjectSearcher(scope, query);
             foreach (var disk in searcher.Get())
             {
-                busTypeMap[(uint)disk["Number"]] = (ushort)disk["BusType"] switch { 11 => "SATA", 17 => "NVMe", 7 => "USB", _ => "Other" };
+                string deviceId = disk["DeviceID"]?.ToString() ?? "";
+                var busType = (ushort)disk["BusType"];
+                var rotationRate = disk["NominalMediaRotationRate"] != null ? (uint)disk["NominalMediaRotationRate"] : 0;
+
+                driveData[deviceId] = (busType switch { 11 => "SATA", 17 => "NVMe", 7 => "USB", _ => "Other" }, rotationRate);
             }
         }
-        catch (ManagementException) { /* Ignora */ }
+        catch (ManagementException) { /* Ignora se a consulta moderna falhar */ }
 
         using var wmiDiskSearcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
         foreach (ManagementObject wmiDisk in wmiDiskSearcher.Get())
         {
-            var index = (uint)wmiDisk["Index"];
             string mediaType = "Unspecified";
-            if (busTypeMap.TryGetValue(index, out var busType))
+            string wmiDeviceId = wmiDisk["DeviceID"]?.ToString()?.Replace("PHYSICALDRIVE", "") ?? "-1";
+
+            if (driveData.TryGetValue(wmiDeviceId, out var data))
             {
-                mediaType = busType == "NVMe" ? "NVMe SSD" : (busType == "SATA" ? "SATA SSD" : busType);
+                if (data.busType == "NVMe")
+                    mediaType = "NVMe SSD";
+                else if (data.busType == "SATA")
+                    mediaType = data.rotationRate > 1 ? "HDD" : "SATA SSD"; // A verificação crucial!
+                else
+                    mediaType = data.busType;
             }
 
             var storageInfo = new StorageInfo
@@ -212,7 +220,65 @@ public class WmiAdapter : IHardwareAdapter
         }
     }
 
-    // --- Métodos Auxiliares ---
+    // NOVO MÉTODO DE FALLBACK PARA TEMPERATURA, MAIS INTELIGENTE
+    public void FillMissingTemperatures(HardwareReport report)
+    {
+        bool cpuTempMissing = !report.Cpus.Any(c => c.Sensors.Any(s => s.Type == SensorType.Temperature));
+        // A lógica pode ser expandida para GPU, etc., no futuro.
+
+        if (!cpuTempMissing) return;
+
+        try
+        {
+            var scope = new ManagementScope("root\\WMI");
+            var query = new ObjectQuery("SELECT CurrentTemperature, InstanceName FROM MSAcpi_ThermalZoneTemperature");
+            using var searcher = new ManagementObjectSearcher(scope, query);
+
+            foreach (var obj in searcher.Get())
+            {
+                var tempKelvin = GetPropertyValue<uint>(obj, "CurrentTemperature");
+                if (tempKelvin > 0)
+                {
+                    var tempCelsius = (tempKelvin / 10.0f) - 273.15f;
+                    var instanceName = GetPropertyValue<string>(obj, "InstanceName") ?? "Thermal Zone";
+
+                    var sensor = new Sensor
+                    {
+                        Name = instanceName,
+                        Value = tempCelsius,
+                        Type = SensorType.Temperature,
+                        Unit = "°C",
+                        DataSource = "WMI_Fallback"
+                    };
+
+                    // Lógica de atribuição: se o nome indicar CPU, atribui à CPU. Senão, à placa-mãe.
+                    if (instanceName.ToUpper().Contains("CPU"))
+                    {
+                        report.Cpus.FirstOrDefault()?.Sensors.Add(sensor);
+                    }
+                    else
+                    {
+                        report.Motherboard.Sensors.Add(sensor);
+                    }
+                }
+            }
+        }
+        catch (ManagementException) { /* Ignora se a consulta de fallback falhar */ }
+    }
+
+    // --- MÉTODOS AUXILIARES ---
+    // ... (GetPropertyValue, GetLogicalDisksForDrive, e os conversores de tipo permanecem os mesmos)
+    private T GetPropertyValue<T>(ManagementBaseObject obj, string propertyName)
+    {
+        try
+        {
+            var value = obj[propertyName];
+            if (value == null) return default(T)!;
+            return (T)Convert.ChangeType(value, typeof(T));
+        }
+        catch { return default(T)!; }
+    }
+
     private List<LogicalDiskInfo> GetLogicalDisksForDrive(string diskDrivePath)
     {
         var logicalDisks = new List<LogicalDiskInfo>();
@@ -238,13 +304,8 @@ public class WmiAdapter : IHardwareAdapter
         return logicalDisks;
     }
 
-    private string ConvertCimMemoryType(object memoryType) => memoryType == null ? "Unknown" : Convert.ToUInt32(memoryType) switch
-    {
-        0x0 => "Unknown", 0x14 => "DDR", 0x15 => "DDR2", 0x18 => "DDR3", 0x1A => "DDR4", _ => "Other"
-    };
-
-    private string ConvertCimMemoryFormFactor(object formFactor) => formFactor == null ? "Unknown" : Convert.ToUInt32(formFactor) switch
-    {
-        8 => "DIMM", 9 => "SODIMM", _ => "Other"
-    };
+    private string ConvertCimMemoryType(object memoryType) => memoryType == null ? "Unknown" : Convert.ToUInt32(memoryType) switch { 0x0 => "Unknown", 0x14 => "DDR", 0x15 => "DDR2", 0x18 => "DDR3", 0x1A => "DDR4", _ => "Other" };
+    private string ConvertCimMemoryFormFactor(object formFactor) => formFactor == null ? "Unknown" : Convert.ToUInt32(formFactor) switch { 8 => "DIMM", 9 => "SODIMM", _ => "Other" };
+    private string ConvertBatteryChemistry(ushort chemistryCode) => chemistryCode switch { 1 => "Other", 2 => "Unknown", 3 => "Lead Acid", 4 => "Nickel Cadmium", 5 => "Nickel Metal Hydride", 6 => "Lithium-ion", 7 => "Zinc air", 8 => "Lithium Polymer", _ => "N/A" };
+    private string ConvertBatteryStatus(ushort statusCode) => statusCode switch { 1 => "Discharging", 2 => "On AC", 3 => "Fully Charged", 4 => "Low", 5 => "Critical", 6 => "Charging", 7 => "Charging and High", 8 => "Charging and Low", 9 => "Charging and Critical", 10 => "Undefined", 11 => "Partially Charged", _ => "Unknown" };
 }

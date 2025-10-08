@@ -36,6 +36,12 @@
           }
         }
       },
+      "Microsoft.NET.ILLink.Tasks/9.0.9": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.NET.ILLink.Tasks.props": {}
+        }
+      },
       "Microsoft.NETCore.Platforms/5.0.0": {
         "type": "package",
         "compile": {
@@ -1524,6 +1530,363 @@
           "buildTransitive/net8.0/System.Text.Json.targets": {}
         }
       }
+    },
+    "net9.0/win-x64": {
+      "HidSharp/2.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/HidSharp.dll": {
+            "related": ".pdb;.XML"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/HidSharp.dll": {
+            "related": ".pdb;.XML"
+          }
+        }
+      },
+      "LibreHardwareMonitorLib/0.9.4": {
+        "type": "package",
+        "dependencies": {
+          "HidSharp": "2.1.0",
+          "Microsoft.Win32.Registry": "5.0.0",
+          "Mono.Posix.NETStandard": "1.0.0",
+          "System.IO.FileSystem.AccessControl": "5.0.0",
+          "System.IO.Ports": "9.0.0",
+          "System.Management": "9.0.0"
+        },
+        "compile": {
+          "lib/net8.0/LibreHardwareMonitorLib.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/LibreHardwareMonitorLib.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.NET.ILLink.Tasks/9.0.9": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.NET.ILLink.Tasks.props": {}
+        }
+      },
+      "Microsoft.NETCore.Platforms/5.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/_._": {}
+        }
+      },
+      "Microsoft.Win32.Registry/5.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.AccessControl": "5.0.0",
+          "System.Security.Principal.Windows": "5.0.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/Microsoft.Win32.Registry.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Mono.Posix.NETStandard/1.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/Mono.Posix.NETStandard.dll": {}
+        },
+        "runtime": {
+          "runtimes/win-x64/lib/netstandard2.0/Mono.Posix.NETStandard.dll": {}
+        },
+        "native": {
+          "runtimes/win-x64/native/MonoPosixHelper.dll": {},
+          "runtimes/win-x64/native/libMonoPosixHelper.dll": {}
+        }
+      },
+      "runtime.android-arm.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.android-arm64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.android-x64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.android-x86.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.linux-arm.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.linux-arm64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.linux-bionic-arm64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.linux-bionic-x64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.linux-musl-arm.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.linux-musl-arm64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.linux-musl-x64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.linux-x64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.maccatalyst-arm64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.maccatalyst-x64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.android-arm.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.android-arm64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.android-x64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.android-x86.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.linux-arm.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.linux-arm64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.linux-bionic-arm64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.linux-bionic-x64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.linux-musl-arm.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.linux-musl-arm64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.linux-musl-x64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.linux-x64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.maccatalyst-arm64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.maccatalyst-x64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.osx-arm64.runtime.native.System.IO.Ports": "9.0.0",
+          "runtime.osx-x64.runtime.native.System.IO.Ports": "9.0.0"
+        }
+      },
+      "runtime.osx-arm64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "runtime.osx-x64.runtime.native.System.IO.Ports/9.0.0": {
+        "type": "package"
+      },
+      "System.CodeDom/9.0.9": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.CommandLine/2.0.0-beta4.22272.1": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/System.CommandLine.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/System.CommandLine.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "resource": {
+          "lib/net6.0/cs/System.CommandLine.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net6.0/de/System.CommandLine.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net6.0/es/System.CommandLine.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net6.0/fr/System.CommandLine.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net6.0/it/System.CommandLine.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net6.0/ja/System.CommandLine.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net6.0/ko/System.CommandLine.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net6.0/pl/System.CommandLine.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net6.0/pt-BR/System.CommandLine.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net6.0/ru/System.CommandLine.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net6.0/tr/System.CommandLine.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net6.0/zh-Hans/System.CommandLine.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net6.0/zh-Hant/System.CommandLine.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "System.IO.FileSystem.AccessControl/5.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.AccessControl": "5.0.0",
+          "System.Security.Principal.Windows": "5.0.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.IO.FileSystem.AccessControl.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/netstandard2.0/System.IO.FileSystem.AccessControl.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.IO.Pipelines/9.0.0-preview.7.24405.7": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/System.IO.Pipelines.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/System.IO.Pipelines.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.IO.Ports/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "runtime.native.System.IO.Ports": "9.0.0"
+        },
+        "compile": {
+          "lib/net9.0/System.IO.Ports.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net9.0/System.IO.Ports.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Management/9.0.9": {
+        "type": "package",
+        "dependencies": {
+          "System.CodeDom": "9.0.9"
+        },
+        "compile": {
+          "lib/net9.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net9.0/System.Management.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Security.AccessControl/5.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "5.0.0",
+          "System.Security.Principal.Windows": "5.0.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Security.AccessControl.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/netcoreapp2.0/System.Security.AccessControl.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Security.Principal.Windows/5.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp3.0/System.Security.Principal.Windows.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/netcoreapp2.1/System.Security.Principal.Windows.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Text.Encodings.Web/9.0.0-preview.7.24405.7": {
+        "type": "package",
+        "compile": {
+          "lib/net9.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Text.Json/9.0.0-preview.7.24405.7": {
+        "type": "package",
+        "dependencies": {
+          "System.IO.Pipelines": "9.0.0-preview.7.24405.7",
+          "System.Text.Encodings.Web": "9.0.0-preview.7.24405.7"
+        },
+        "compile": {
+          "lib/net9.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/System.Text.Json.targets": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -1563,6 +1926,57 @@
         "librehardwaremonitorlib.0.9.4.nupkg.sha512",
         "librehardwaremonitorlib.nuspec",
         "packageicon.png"
+      ]
+    },
+    "Microsoft.NET.ILLink.Tasks/9.0.9": {
+      "sha512": "cHi1os/s6aobEgNkbOh/jW+ru//rHuedvj4PmTh2mMY7et/mJjqphBeXeKCesDvMd0+E2JyX9EPZZC4VRKslXg==",
+      "type": "package",
+      "path": "microsoft.net.illink.tasks/9.0.9",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "Sdk/Sdk.props",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/cs/ILLink.CodeFixProvider.dll",
+        "analyzers/dotnet/cs/ILLink.RoslynAnalyzer.dll",
+        "build/Microsoft.NET.ILLink.Analyzers.props",
+        "build/Microsoft.NET.ILLink.Tasks.props",
+        "build/Microsoft.NET.ILLink.targets",
+        "microsoft.net.illink.tasks.9.0.9.nupkg.sha512",
+        "microsoft.net.illink.tasks.nuspec",
+        "tools/net472/ILLink.Tasks.dll",
+        "tools/net472/ILLink.Tasks.dll.config",
+        "tools/net472/Mono.Cecil.Mdb.dll",
+        "tools/net472/Mono.Cecil.Pdb.dll",
+        "tools/net472/Mono.Cecil.Rocks.dll",
+        "tools/net472/Mono.Cecil.dll",
+        "tools/net472/Sdk/Sdk.props",
+        "tools/net472/System.Buffers.dll",
+        "tools/net472/System.Collections.Immutable.dll",
+        "tools/net472/System.Memory.dll",
+        "tools/net472/System.Numerics.Vectors.dll",
+        "tools/net472/System.Reflection.Metadata.dll",
+        "tools/net472/System.Runtime.CompilerServices.Unsafe.dll",
+        "tools/net472/build/Microsoft.NET.ILLink.Analyzers.props",
+        "tools/net472/build/Microsoft.NET.ILLink.Tasks.props",
+        "tools/net472/build/Microsoft.NET.ILLink.targets",
+        "tools/net9.0/ILLink.Tasks.deps.json",
+        "tools/net9.0/ILLink.Tasks.dll",
+        "tools/net9.0/Mono.Cecil.Mdb.dll",
+        "tools/net9.0/Mono.Cecil.Pdb.dll",
+        "tools/net9.0/Mono.Cecil.Rocks.dll",
+        "tools/net9.0/Mono.Cecil.dll",
+        "tools/net9.0/Sdk/Sdk.props",
+        "tools/net9.0/build/Microsoft.NET.ILLink.Analyzers.props",
+        "tools/net9.0/build/Microsoft.NET.ILLink.Tasks.props",
+        "tools/net9.0/build/Microsoft.NET.ILLink.targets",
+        "tools/net9.0/illink.deps.json",
+        "tools/net9.0/illink.dll",
+        "tools/net9.0/illink.runtimeconfig.json",
+        "useSharedDesignerContext.txt"
       ]
     },
     "Microsoft.NETCore.Platforms/5.0.0": {
@@ -2602,6 +3016,7 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "LibreHardwareMonitorLib >= 0.9.4",
+      "Microsoft.NET.ILLink.Tasks >= 9.0.9",
       "System.CommandLine >= 2.0.0-beta4.22272.1",
       "System.Management >= 9.0.9",
       "System.Text.Json >= 9.0.0-preview.7.24405.7"
@@ -2654,6 +3069,12 @@
             "target": "Package",
             "version": "[0.9.4, )"
           },
+          "Microsoft.NET.ILLink.Tasks": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[9.0.9, )",
+            "autoReferenced": true
+          },
           "System.CommandLine": {
             "target": "Package",
             "version": "[2.0.0-beta4.22272.1, )"
@@ -2678,12 +3099,31 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+            "version": "[9.0.9, 9.0.9]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.win-x64",
+            "version": "[9.0.9, 9.0.9]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+            "version": "[9.0.9, 9.0.9]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "win-x64": {
+        "#import": []
       }
     }
   }

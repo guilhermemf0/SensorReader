@@ -7,13 +7,12 @@ namespace SensorReader.Models;
 public class BatteryInfo
 {
     public string Name { get; set; } = "N/A";
-    public ushort Chemistry { get; set; }
-    public double DesignCapacity { get; set; }
-    public double FullChargeCapacity { get; set; }
-    public ushort Status { get; set; }
-    public double EstimatedChargeRemaining { get; set; }
-    public double EstimatedRunTime { get; set; }
-    public double TimeToFullCharge { get; set; }
+    public string Status { get; set; } = "N/A";
+    public string Chemistry { get; set; } = "N/A";
+    public uint DesignCapacity { get; set; }
+    public uint FullChargeCapacity { get; set; }
+    public ushort EstimatedChargeRemaining { get; set; }
+    public uint EstimatedRunTime { get; set; }
 }
 
 public class LogicalDiskInfo
@@ -51,6 +50,7 @@ public class Sensor
     public float? Value { get; set; }
     public SensorType Type { get; set; }
     public string Unit { get; set; } = string.Empty;
+    public string DataSource { get; set; } = "N/A"; // NOVA PROPRIEDADE
 }
 
 [JsonConverter(typeof(JsonStringEnumConverter))]

@@ -1,0 +1,4 @@
+C:\Projetos\SensorReader\src\SensorReader\bin\Release\net9.0\win-x64\publish\SensorReader.pdb
+C:\Projetos\SensorReader\src\SensorReader\bin\Release\net9.0\win-x64\publish\MonoPosixHelper.dll
+C:\Projetos\SensorReader\src\SensorReader\bin\Release\net9.0\win-x64\publish\libMonoPosixHelper.dll
+C:\Projetos\SensorReader\src\SensorReader\bin\Release\net9.0\win-x64\publish\SensorReader.exe
