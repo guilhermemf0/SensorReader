@@ -17,14 +17,14 @@
           "C:\\Users\\langu\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net9.0"
+          "net9.0-windows"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
+          "net9.0-windows7.0": {
+            "targetAlias": "net9.0-windows",
             "projectReferences": {
               "C:\\Projetos\\SensorReader\\src\\SensorReader\\SensorReader.csproj": {
                 "projectPath": "C:\\Projetos\\SensorReader\\src\\SensorReader\\SensorReader.csproj"
@@ -45,8 +45,8 @@
         "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -98,14 +98,14 @@
           "C:\\Users\\langu\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net9.0"
+          "net9.0-windows"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
+          "net9.0-windows7.0": {
+            "targetAlias": "net9.0-windows",
             "projectReferences": {}
           }
         },
@@ -122,8 +122,8 @@
         "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
           "dependencies": {
             "LibreHardwareMonitorLib": {
               "target": "Package",
@@ -136,6 +136,10 @@
             "System.Management": {
               "target": "Package",
               "version": "[9.0.9, )"
+            },
+            "System.Management.Automation": {
+              "target": "Package",
+              "version": "[7.5.3, )"
             },
             "System.Text.Json": {
               "target": "Package",

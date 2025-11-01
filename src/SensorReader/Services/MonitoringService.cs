@@ -19,16 +19,10 @@ public class MonitoringService
 
     public void RunOnce()
     {
-        // 1. Coleta dados estáticos e de WMI.
         HardwareReport report = _wmiAdapter.GetHardwareReport();
-
-        // 2. Tenta obter sensores da fonte primária (LibreHardware).
         _libreAdapter.GetHardwareReport(report);
-
-        // 3. (PLANO B) Ativa o fallback para preencher temperaturas em falta.
         _wmiAdapter.FillMissingTemperatures(report);
-
-        // 4. Finaliza e mostra o relatório mais completo possível.
+        _wmiAdapter.FillMissingCpuLoad(report); // <-- SUGESTÃO
         report.Timestamp = DateTime.UtcNow.ToString("o");
         _formatter.Write(report);
     }

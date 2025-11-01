@@ -1,0 +1,1064 @@
+{
+  "Timestamp": "2025-11-01T22:31:06.1685998Z",
+  "DataSources": [
+    "WmiAdapter",
+    "LibreHardwareAdapter"
+  ],
+  "OsInfo": {
+    "Caption": "Microsoft Windows 11 Pro",
+    "Version": "10.0.26200",
+    "BuildNumber": "26200",
+    "OsArchitecture": "64 bits",
+    "InstallDate": "2025-09-15T14:55:17-03:00",
+    "LastBootUpTime": "2025-11-01T17:27:45.5-03:00"
+  },
+  "NetworkAdapters": [
+    {
+      "Name": "Realtek PCIe GbE Family Controller",
+      "AdapterType": "Ethernet 802.3",
+      "MacAddress": "D8:43:AE:75:6A:97",
+      "IpAddresses": [
+        "192.168.100.6",
+        "fe80::b6fc:9f3:b452:942b",
+        "2804:15fc:609c:f100:6ccf:1757:39c5:db49",
+        "2804:15fc:609c:f100:8a5c:7113:6934:eb97"
+      ],
+      "IsConnected": true
+    },
+    {
+      "Name": "Famatech Radmin VPN Ethernet Adapter",
+      "AdapterType": "Ethernet 802.3",
+      "MacAddress": "02:50:36:F9:E4:80",
+      "IpAddresses": [
+        "26.142.44.208",
+        "fe80::8536:5677:6238:fa21",
+        "fdfd::1a8e:2cd0"
+      ],
+      "IsConnected": true
+    },
+    {
+      "Name": "LogMeIn Hamachi Virtual Ethernet Adapter",
+      "AdapterType": "Ethernet 802.3",
+      "MacAddress": "7A:79:19:34:99:7A",
+      "IpAddresses": [
+        "25.52.153.122",
+        "fe80::3fe2:f92a:c0ae:846f",
+        "2620:9b::1934:997a"
+      ],
+      "IsConnected": true
+    }
+  ],
+  "Batteries": [],
+  "Cpus": [
+    {
+      "Name": "AMD Ryzen 5 5500",
+      "NumberOfCores": 6,
+      "NumberOfLogicalProcessors": 6,
+      "L2CacheSize": 3072,
+      "L3CacheSize": 16384,
+      "Sensors": [
+        {
+          "Name": "CPU Core #1",
+          "Value": 55.378254,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #2",
+          "Value": 36.580704,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #3",
+          "Value": 66.63645,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #4",
+          "Value": 35.57716,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #5",
+          "Value": 22.79936,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #6",
+          "Value": 15.799725,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #7",
+          "Value": 10.570192,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #8",
+          "Value": 10.300917,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #9",
+          "Value": 4.739201,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #10",
+          "Value": 4.32117,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #11",
+          "Value": 9.232831,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core #12",
+          "Value": 7.9785347,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Total",
+          "Value": 23.326206,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "CPU Core Max",
+          "Value": 66.63645,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Package",
+          "Value": 30.668875,
+          "Type": "Power",
+          "Unit": "W",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #1",
+          "Value": 4342.095,
+          "Type": "Clock",
+          "Unit": "MHz",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #1",
+          "Value": 43.5,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #1 (SMU)",
+          "Value": 5.7544856,
+          "Type": "Power",
+          "Unit": "W",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #1 VID",
+          "Value": 1.325,
+          "Type": "Voltage",
+          "Unit": "V",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #2",
+          "Value": 4342.095,
+          "Type": "Clock",
+          "Unit": "MHz",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #2",
+          "Value": 43.5,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #2 (SMU)",
+          "Value": 6.3230476,
+          "Type": "Power",
+          "Unit": "W",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #2 VID",
+          "Value": 1.3375,
+          "Type": "Voltage",
+          "Unit": "V",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #3",
+          "Value": 4342.095,
+          "Type": "Clock",
+          "Unit": "MHz",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #3",
+          "Value": 43.5,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #3 (SMU)",
+          "Value": 2.7311587,
+          "Type": "Power",
+          "Unit": "W",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #3 VID",
+          "Value": 1.3375,
+          "Type": "Voltage",
+          "Unit": "V",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #4",
+          "Value": 3473.6763,
+          "Type": "Clock",
+          "Unit": "MHz",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #4",
+          "Value": 34.8,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #4 (SMU)",
+          "Value": 1.7296879,
+          "Type": "Power",
+          "Unit": "W",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #4 VID",
+          "Value": 1.3375,
+          "Type": "Voltage",
+          "Unit": "V",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #5",
+          "Value": 3473.6763,
+          "Type": "Clock",
+          "Unit": "MHz",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #5",
+          "Value": 34.8,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #5 (SMU)",
+          "Value": 1.0511163,
+          "Type": "Power",
+          "Unit": "W",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #5 VID",
+          "Value": 1.3375,
+          "Type": "Voltage",
+          "Unit": "V",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #6",
+          "Value": 3473.6763,
+          "Type": "Clock",
+          "Unit": "MHz",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #6",
+          "Value": 34.8,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #6 (SMU)",
+          "Value": 1.5083901,
+          "Type": "Power",
+          "Unit": "W",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core #6 VID",
+          "Value": 1.3375,
+          "Type": "Voltage",
+          "Unit": "V",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core (Tctl/Tdie)",
+          "Value": 63.250008,
+          "Type": "Temperature",
+          "Unit": "\u00B0C",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Core (SVI2 TFN)",
+          "Value": 1.55,
+          "Type": "Voltage",
+          "Unit": "V",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "SoC (SVI2 TFN)",
+          "Value": 1.55,
+          "Type": "Voltage",
+          "Unit": "V",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Bus Speed",
+          "Value": 99.81828,
+          "Type": "Clock",
+          "Unit": "MHz",
+          "DataSource": "LibreHardwareMonitor"
+        }
+      ]
+    }
+  ],
+  "Gpus": [
+    {
+      "Name": "AMD Radeon RX 6600",
+      "DriverVersion": "32.0.21033.2001",
+      "AdapterRAM": 4293918720,
+      "AdapterRAMinGB": 4,
+      "Sensors": [
+        {
+          "Name": "GPU Memory Total",
+          "Value": 8176,
+          "Type": "SmallData",
+          "Unit": "MB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Fullscreen FPS",
+          "Value": 0,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Dedicated Memory Total",
+          "Value": 8146.2227,
+          "Type": "SmallData",
+          "Unit": "MB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Dedicated Memory Free",
+          "Value": 6692.508,
+          "Type": "SmallData",
+          "Unit": "MB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Dedicated Memory Used",
+          "Value": 1453.7148,
+          "Type": "SmallData",
+          "Unit": "MB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Shared Memory Used",
+          "Value": 337.89062,
+          "Type": "SmallData",
+          "Unit": "MB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Shared Memory Free",
+          "Value": 7800.842,
+          "Type": "SmallData",
+          "Unit": "MB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Shared Memory Total",
+          "Value": 8138.7324,
+          "Type": "SmallData",
+          "Unit": "MB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D 3D",
+          "Value": 0.31358078,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Copy",
+          "Value": 0.03079108,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Compute 0",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Compute 1",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Copy",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Timer 0",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Security 1",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D True Audio 0",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Compute 3",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D High Priority Compute",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D High Priority 3D",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Video JPEG 0",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Video Decode 1",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D True Audio 1",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "D3D Video Codec 0",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Memory Used",
+          "Value": 1453,
+          "Type": "SmallData",
+          "Unit": "MB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Memory Free",
+          "Value": 6723,
+          "Type": "SmallData",
+          "Unit": "MB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Package",
+          "Value": 18,
+          "Type": "Power",
+          "Unit": "W",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Core",
+          "Value": 7,
+          "Type": "Clock",
+          "Unit": "MHz",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Memory",
+          "Value": 1740,
+          "Type": "Clock",
+          "Unit": "MHz",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Core",
+          "Value": 52,
+          "Type": "Temperature",
+          "Unit": "\u00B0C",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Hot Spot",
+          "Value": 53,
+          "Type": "Temperature",
+          "Unit": "\u00B0C",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Fan",
+          "Value": 0,
+          "Type": "Fan",
+          "Unit": "RPM",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Fan",
+          "Value": 0,
+          "Type": "Control",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Core",
+          "Value": 0.68100005,
+          "Type": "Voltage",
+          "Unit": "V",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Core",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "GPU Memory",
+          "Value": 0,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        }
+      ]
+    }
+  ],
+  "Memory": {
+    "TotalPhysicalMemory": 17068158976,
+    "TotalPhysicalMemoryInGB": 15.9,
+    "Sticks": [
+      {
+        "DeviceLocator": "DIMM 1",
+        "Capacity": 17179869184,
+        "Speed": 3200,
+        "Manufacturer": "A-DATA Technology",
+        "PartNumber": "AX4U320016G16A-SB10",
+        "FormFactor": "DIMM",
+        "MemoryType": "DDR4"
+      }
+    ],
+    "GlobalSensors": [
+      {
+        "Name": "Memory Used",
+        "Value": 13.798859,
+        "Type": "Data",
+        "Unit": "GB",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Memory Available",
+        "Value": 2.097103,
+        "Type": "Data",
+        "Unit": "GB",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Memory",
+        "Value": 86.80732,
+        "Type": "Load",
+        "Unit": "%",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Virtual Memory Used",
+        "Value": 20.422924,
+        "Type": "Data",
+        "Unit": "GB",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Virtual Memory Available",
+        "Value": 6.4730377,
+        "Type": "Data",
+        "Unit": "GB",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Virtual Memory",
+        "Value": 75.93305,
+        "Type": "Load",
+        "Unit": "%",
+        "DataSource": "LibreHardwareMonitor"
+      }
+    ]
+  },
+  "Motherboard": {
+    "Product": "B550M PRO-VDH WIFI (MS-7C95)",
+    "Manufacturer": "Micro-Star International Co., Ltd.",
+    "SerialNumber": "07C9514_O31E730755",
+    "BiosVersion": "2.J0",
+    "Sensors": [
+      {
+        "Name": "CPU Fan",
+        "Value": 66,
+        "Type": "Control",
+        "Unit": "",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Pump Fan",
+        "Value": 100,
+        "Type": "Control",
+        "Unit": "",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #1",
+        "Value": 66,
+        "Type": "Control",
+        "Unit": "",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #2",
+        "Value": 66,
+        "Type": "Control",
+        "Unit": "",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #3",
+        "Value": 66,
+        "Type": "Control",
+        "Unit": "",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #4",
+        "Value": 100,
+        "Type": "Control",
+        "Unit": "",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #5",
+        "Value": 100,
+        "Type": "Control",
+        "Unit": "",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #6",
+        "Value": 50,
+        "Type": "Control",
+        "Unit": "",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "\u002B12V",
+        "Value": 12.144001,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "\u002B5V",
+        "Value": 5.03,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Vcore",
+        "Value": 1.102,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Voltage #1",
+        "Value": 0.67600006,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "DIMM",
+        "Value": 2.66,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "CPU I/O",
+        "Value": 0.77800006,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "CPU System Agent",
+        "Value": 0.772,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Voltage #2",
+        "Value": 1.544,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "AVCC3",
+        "Value": 3.292,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "CPU Termination",
+        "Value": 1.8340001,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "VRef",
+        "Value": 0,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "VSB",
+        "Value": 3.3560002,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "AVSB",
+        "Value": 3.3560002,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "CMOS Battery",
+        "Value": 0,
+        "Type": "Voltage",
+        "Unit": "V",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "CPU",
+        "Value": 63,
+        "Type": "Temperature",
+        "Unit": "\u00B0C",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System",
+        "Value": 41,
+        "Type": "Temperature",
+        "Unit": "\u00B0C",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "VRM MOS",
+        "Value": 40,
+        "Type": "Temperature",
+        "Unit": "\u00B0C",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "PCH",
+        "Value": 38.5,
+        "Type": "Temperature",
+        "Unit": "\u00B0C",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "CPU Socket",
+        "Value": 42,
+        "Type": "Temperature",
+        "Unit": "\u00B0C",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "PCIe x1",
+        "Value": 38.5,
+        "Type": "Temperature",
+        "Unit": "\u00B0C",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "M2_1",
+        "Value": 0,
+        "Type": "Temperature",
+        "Unit": "\u00B0C",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "CPU Fan",
+        "Value": 1818,
+        "Type": "Fan",
+        "Unit": "RPM",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "Pump Fan",
+        "Value": 0,
+        "Type": "Fan",
+        "Unit": "RPM",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #1",
+        "Value": 1119,
+        "Type": "Fan",
+        "Unit": "RPM",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #2",
+        "Value": 1104,
+        "Type": "Fan",
+        "Unit": "RPM",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #3",
+        "Value": 1220,
+        "Type": "Fan",
+        "Unit": "RPM",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #4",
+        "Value": 0,
+        "Type": "Fan",
+        "Unit": "RPM",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #5",
+        "Value": 0,
+        "Type": "Fan",
+        "Unit": "RPM",
+        "DataSource": "LibreHardwareMonitor"
+      },
+      {
+        "Name": "System Fan #6",
+        "Value": 0,
+        "Type": "Fan",
+        "Unit": "RPM",
+        "DataSource": "LibreHardwareMonitor"
+      }
+    ]
+  },
+  "StorageDevices": [
+    {
+      "Model": "KINGSTON SNV3S1000G",
+      "MediaType": "NVMe SSD",
+      "InterfaceType": "SCSI",
+      "Size": 1000202273280,
+      "SizeInGB": 931.51,
+      "LogicalDisks": [
+        {
+          "DeviceID": "C:",
+          "FileSystem": "NTFS",
+          "Size": 999199600640,
+          "FreeSpace": 506836881408,
+          "SizeInGB": 930.58,
+          "FreeSpaceInGB": 472.03
+        }
+      ],
+      "Sensors": [
+        {
+          "Name": "Temperature",
+          "Value": 36,
+          "Type": "Temperature",
+          "Unit": "\u00B0C",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Available Spare",
+          "Value": 100,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Available Spare Threshold",
+          "Value": 10,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Percentage Used",
+          "Value": 3,
+          "Type": "Unknown",
+          "Unit": "",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Data Read",
+          "Value": 17085,
+          "Type": "Data",
+          "Unit": "GB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Data Written",
+          "Value": 16669,
+          "Type": "Data",
+          "Unit": "GB",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Temperature 1",
+          "Value": 36,
+          "Type": "Temperature",
+          "Unit": "\u00B0C",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Temperature 2",
+          "Value": 60,
+          "Type": "Temperature",
+          "Unit": "\u00B0C",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Used Space",
+          "Value": 49.27571,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Read Activity",
+          "Value": 9.652998E-07,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Write Activity",
+          "Value": 1.1898783E-07,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Total Activity",
+          "Value": 99.99995,
+          "Type": "Load",
+          "Unit": "%",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Read Rate",
+          "Value": null,
+          "Type": "Throughput",
+          "Unit": "B/s",
+          "DataSource": "LibreHardwareMonitor"
+        },
+        {
+          "Name": "Write Rate",
+          "Value": null,
+          "Type": "Throughput",
+          "Unit": "B/s",
+          "DataSource": "LibreHardwareMonitor"
+        }
+      ]
+    }
+  ]
+}

@@ -88,16 +88,16 @@ public class PlainTextOutputFormatter : IOutputFormatter
         if (string.IsNullOrEmpty(name)) return "";
         var sb = new StringBuilder();
         foreach (char c in name)
+    {
+        if (char.IsLetterOrDigit(c))
         {
-            if (char.IsLetterOrDigit(c))
-            {
-                sb.Append(c);
-            }
-            else if (c == ' ' || c == '_' || c == '-')
-            {
-                sb.Append('_');
-            }
+            sb.Append(c);
         }
-        return sb.ToString().ToUpper();
+        else if (c == ' ' || c == '_' || c == '-' || c == '/')
+        {
+            sb.Append('_');
+        }
+    }
+    return sb.ToString().ToUpper();
     }
 }

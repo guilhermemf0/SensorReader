@@ -19,8 +19,15 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
             IsMemoryEnabled = true,
             IsStorageEnabled = true
         };
-        _computer.Open();
-        Thread.Sleep(2000);
+        try
+        {
+            _computer.Open();
+            Thread.Sleep(2000);
+        }
+        catch (Exception) // Captura genérica aqui é aceitável
+        {
+            Console.Error.WriteLine("Falha ao iniciar LibreHardwareMonitor.");
+        }
     }
 
     public HardwareReport GetHardwareReport(HardwareReport? existingReport = null)
@@ -44,17 +51,15 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
 
     private void ProcessHardware(IHardware hardware, HardwareReport report)
     {
-        var sensors = GetSensors(hardware);
+        var sensors = GetSensors(hardware).ToList(); // Materializa a lista
 
         switch (hardware.HardwareType)
         {
             case HardwareType.Cpu:
-                // Assume o primeiro CPU da lista
                 report.Cpus.FirstOrDefault()?.Sensors.AddRange(sensors);
                 break;
             case HardwareType.GpuAmd:
             case HardwareType.GpuNvidia:
-                 // Assume a primeira GPU da lista
                 report.Gpus.FirstOrDefault()?.Sensors.AddRange(sensors);
                 break;
             case HardwareType.Memory:
@@ -62,18 +67,18 @@ public class LibreHardwareAdapter : IHardwareAdapter, IDisposable
                 break;
             case HardwareType.Motherboard:
             case HardwareType.SuperIO:
-                 // Atribui todos os sensores à única placa-mãe
+                // LÓGICA REFORÇADA: Adiciona TODOS os sensores encontrados aqui à placa-mãe.
+                // Isso garante que sensores como "System" sejam incluídos.
                 report.Motherboard.Sensors.AddRange(sensors);
                 break;
             case HardwareType.Storage:
-                // Lógica de correspondência aprimorada para armazenamento
                 var storageDevice = report.StorageDevices
                     .FirstOrDefault(s => SanitizeName(hardware.Name).Contains(SanitizeName(s.Model)));
                 storageDevice?.Sensors.AddRange(sensors);
                 break;
         }
 
-        // Processar sub-hardware (útil para alguns componentes)
+        // Processar sub-hardware continua importante
         foreach (var subHardware in hardware.SubHardware)
         {
             ProcessHardware(subHardware, report);
